@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card accent="info" size="giant" [nbSpinner]="loading"
+             nbSpinnerStatus="info"
+             nbSpinnerSize="large"
+             nbSpinnerMessage="">
+      <nb-card-header>
+        <h6>POST SERVICES</h6>
+      </nb-card-header>
+
+      <nb-card-body>
+
+        <div class="form">
+
+          <div class="avatar-upload">
+            <div class="avatar-edit">
+              <input  id="imageUpload"class="form-group" type="file" (change)="onFileChanged($event)">
+              <label for="imageUpload"  ></label>
+            </div>
+            <div class="avatar-preview">
+              <div id="imagePreview"></div>
+
+              <img  [src]="imgURL" height="200" width="200" *ngIf="imgURL">
+            </div>
+          </div>
+
+
+          <input type="text" nbInput fullWidth placeholder="Company Name" name="Ename" [(ngModel)]="employee.name">
+          <textarea rows="5" nbInput fullWidth placeholder="Description" name="Edesc"  [(ngModel)]="employee.author"></textarea>
+
+          <button status="info" nbButton (click)="saveBook()" outline>Submit</button>
+
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+
+  <div class="col-lg-6">
+    <nb-card  accent="success"  size="giant" >
+
+      <nb-card-header>
+
+        <h6>SERVICES</h6>
+      </nb-card-header>
+      <nb-card-body class="nbody">
+
+        <div class="row" >
+
+          <div class="col-md-4" *ngFor="let book of books"  accent="info"  [nbSpinner]="loading"
+               nbSpinnerStatus="info"
+               nbSpinnerSize="large"
+               nbSpinnerMessage="">
+            <nb-flip-card >
+              <nb-card-front>
+                <nb-card class="lol" status="success" >
+                  <nb-card-header>
+                    <i class="ion-social-usd"></i>
+                    <span class="title"><h6 class="name">{{book.name}}</h6></span>
+                  </nb-card-header>
+                  <nb-card-body>
+
+                    <img class="picture" src="{{book.retrievedImage}}"  >
+
+                  </nb-card-body>
+                  <nb-card-footer >
+                    <div class="btset">
+                      <nb-action   icon="trash-outline" (click)="deleteBook(book.id)"></nb-action>
+                      <nb-action   icon="edit-outline" (click)=" openWindowForm(book)"></nb-action>
+                    </div>
+                  </nb-card-footer>
+                </nb-card>
+              </nb-card-front>
+              <nb-card-back>
+                <nb-card size="small" status="info">
+                  <nb-card-header>
+                    <span class="title">Description</span>
+                  </nb-card-header>
+                  <nb-card-body>
+                    {{book.author}}
+                  </nb-card-body>
+                </nb-card>
+              </nb-card-back>
+            </nb-flip-card>
+          </div>
+        </div>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<ng-template #Updateform>
+
+  <div class="form">
+
+    <div class="avatar-upload">
+      <div class="avatar-edit">
+
+        <label for="imageUpload"  ></label>
+      </div>
+      <div class="avatar-preview">
+        <div id="imgPreview"></div>
+
+        <img src="{{emp.retrievedImage}}" height="200" width="200">
+      </div>
+    </div>
+
+
+    <input type="text" nbInput fullWidth placeholder="Company Name" name="Ename" [(ngModel)]="emp.name">
+    <textarea rows="5" nbInput fullWidth placeholder="Description" name="Edesc"  [(ngModel)]="emp.author"></textarea>
+
+
+    <button status="success" nbButton (click)="editBook(emp)" outline>Update</button>
+
+  </div>
+
+</ng-template>
